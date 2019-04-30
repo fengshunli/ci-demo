@@ -1,0 +1,21 @@
+stages:
+  - name: Build
+    steps:
+      - runScriptConfig:
+          image: maven:3-jdk-8
+          shellScript: |-
+            mvn clean package docker:build -DpushImage
+#        env:
+#          DOCKER_HOST: tcp://dind.default:2375
+#          PLUGIN_DAEMON_OFF: true
+#  - name: Publish
+#    steps:
+#      - publishImageConfig:
+#          dockerfilePath: ./Dockerfile
+#          buildContext: .
+#          tag: example-greenhouse:${CICD_EXECUTION_SEQUENCE}
+  - name: Deploy
+    steps:
+      - applyYamlConfig:
+          path: ./deployment.yaml
+timeout: 60

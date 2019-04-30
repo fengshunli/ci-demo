@@ -1,0 +1,25 @@
+image: maven:3-jdk-8
+
+before_script:
+  - rm -rf /root/.m2/settings.xml
+  - echo -e "<?xml version=\""1.0\"" encoding=\""UTF-8\""?><settings xmlns=\""http://maven.apache.org/SETTINGS/1.0.0\"" xmlns:xsi=\""http://www.w3.org/2001/XMLSchema-instance\"" xsi:schemaLocation=\""http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd\""><mirrors><mirror><id>alimaven</id><name>aliyun maven</name><url>http://maven.aliyun.com/nexus/content/groups/public/</url><mirrorOf>central</mirrorOf></mirror></mirrors></settings>" > /root/.m2/settings.xml
+
+#variables:
+#  DOCKER_HOST: tcp://172.16.1.30:2375
+
+stages:
+  - deploy
+
+deploy uranus:
+  stage: deploy
+  tags:
+    - docker
+  script:
+    - echo "=============== 开始编译构建任务 ==============="
+#    - docker rmi $(docker images -f "dangling=true" -q) 1>/dev/null 2>&1 | exit 0
+    - mvn clean package docker:build -DpushImage
+#    - echo "=============== 开始启动容器 ==============="
+#    - if [ $(docker ps -aq --filter name= 172.16.1.30:5000) ]; then docker rm -f `docker ps -a|grep 172.16.1.30:5000|awk '{print $1}'`;fi
+#    - docker run --net=host -d -p 8000:8000 --name demo 172.16.1.30:5000/demo:1.0
+  only:
+    - master
