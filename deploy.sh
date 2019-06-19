@@ -1,0 +1,1 @@
+kubectl apply -n kube-system -f .

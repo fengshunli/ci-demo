@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: demo-service
+  name: ci-demo
 spec:
   selector:
     app: demo
@@ -13,23 +13,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-greenhouse
+  name: ci-demo
   labels:
-    app: demo
+    app: ci-demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo
+      app: ci-demo
   template:
     metadata:
       labels:
-        app: demo
+        app: ci-demo
     spec:
       imagePullSecrets:
-        - name: pipeline-docker-registry
+        - name: ci-demo
       containers:
-        - name: maven
-          image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        - name: ci-demo
+          image: registry.cn-beijing.aliyuncs.com/fengshunli/ci-demo:1.0
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8888

@@ -64,7 +64,7 @@
                 <version>0.4.13</version>
                 <configuration>
                     <pushImage>true</pushImage>
-<!--                    <dockerHost>http://${docker.registryUrl}/:2375</dockerHost>-->
+                    <dockerHost>http://47.93.47.195:2375</dockerHost>
                     <imageName>${docker.registryUrl}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
                     <baseImage>java:8-jre</baseImage>
                     <maintainer>fsl 1171313930@qq.com</maintainer>
