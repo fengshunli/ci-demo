@@ -1,14 +1,14 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: ci-demo
 spec:
   selector:
-    app: demo
+    app: ci-demo
   type: NodePort
   ports:
     - port: 8888
-      targetPort: 8888
+      nodePort: 32256
 ---
 apiVersion: apps/v1
 kind: Deployment
