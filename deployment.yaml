@@ -34,3 +34,10 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8888
+          livenessProbe:
+            httpGet:
+              port: 8888
+              path: /healthz
+              scheme: HTTP
+            periodSeconds: 15
+            initialDelaySeconds: 30
