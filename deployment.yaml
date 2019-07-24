@@ -30,7 +30,7 @@ spec:
         - name: ci-demo
       containers:
         - name: ci-demo
-          image: registry.cn-beijing.aliyuncs.com/fengshunli/ci-demo:1.0
+          image: registry.cn-beijing.aliyuncs.com/fengshunli/ci-demo:{{imageVersion}}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8888
